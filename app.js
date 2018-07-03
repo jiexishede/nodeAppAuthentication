@@ -4,12 +4,19 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
+
+
+
 // Middlewares
+app.use(morgan('dev'));
+app.use(bodyParser.json());
 
 
 // Routes
+//http://localhost:3000/users/signin  
+//http://localhost:3000/users/scret
 
-
+app.use('/users', require('./routes/users'));
 
 // Start the server
 
