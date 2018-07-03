@@ -4,7 +4,19 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
+/**
+package.json:
+"start-dev": "nodemon app.js",
 
+nodemon 检测 变化 自动重启, 用于在开发中加快开发速度
+
+`yarn start-dev` 就可以诶 执行 在 package.json 里面 的文件
+
+`npm run start-dev` 也可以 
+
+每保存一次,自动重启
+
+*/
 
 
 // Middlewares
