@@ -1,3 +1,5 @@
+const User = require('../models/user');
+
 module.exports = {
     signUp: async(req, res, next) => {
         // promiss-router 有了这些代码
@@ -9,6 +11,23 @@ module.exports = {
         // Email && Password
         console.log('conents of req.value.body', req.value.body);
         console.log('UsersController.signUp() called!');
+        const { email, password } = req.value.body; // 对象解构
+        // // const email = req.value.body.email;
+        // // const password = req.value.body.password;
+
+        const newUser = new User({
+            email,
+            password
+            // email: email, // 一样可以省略
+            // password: password
+        });
+
+        // The await operator is used to wait for a Promise. It can only be used inside an async function.
+        await newUser.save();
+
+        res.json({
+            user: 'created'
+        });
     },
 
     signIn: async(req, res, next) => {
