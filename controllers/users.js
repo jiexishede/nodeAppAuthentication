@@ -1,5 +1,15 @@
 const JWT = require('jsonwebtoken');
 const User = require('../models/user');
+const { JWT_SRCRET } = require('../configuration');
+
+signToken = user => {
+    return JWT.sign({
+        iss: 'CodeWorker',
+        sub: user.id,
+        iat: new Date().getTime(), // current time 
+        exp: new Date().setDate(new Date().getDate() + 1) // current time + 1 day ahead
+    }, JWT_SRCRET); // 使用  这 来对 sub 进行 编码..  不是 加密.. jwt
+}
 
 module.exports = {
     signUp: async(req, res, next) => {
@@ -26,7 +36,6 @@ module.exports = {
 
 
 
-
         const newUser = new User({
             email,
             password
@@ -38,17 +47,16 @@ module.exports = {
         await newUser.save();
 
 
+
+        // Generate a token
+        const token = signToken(newUser);
+
         // Respond with token
 
         // res.json({
         //     user: 'created'
         // });
-        const token = JWT.sign({
-            iss: 'CodeWorker',
-            sub: newUser.id,
-            iat: new Date().getTime(), // current time 
-            exp: new Date().setDate(new Date().getDate() + 1) // current time + 1 day ahead
-        }, 'secretString');
+
 
         res.status(200).json({
             // token:token
