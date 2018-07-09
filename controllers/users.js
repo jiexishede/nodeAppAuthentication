@@ -67,6 +67,7 @@ module.exports = {
     signIn: async(req, res, next) => {
         // Generarte token
         console.log('UsersController.signIn() called!');
+        console.log('Successful Login!');
     },
     secret: async(req, res, next) => {
 
