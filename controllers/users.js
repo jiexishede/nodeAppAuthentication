@@ -65,6 +65,12 @@ module.exports = {
     },
 
     signIn: async(req, res, next) => {
+        // 这里的 req 是 中间件  传递过来的内容
+        // 先输出 一下, 看下  user 有没有 获取 成功.
+        // console.log('req.user', req.user);
+
+        const token = signToken(req.user);
+        res.status(200).json({ token });
         // Generarte token
         console.log('UsersController.signIn() called!');
         console.log('Successful Login!');
@@ -75,7 +81,7 @@ module.exports = {
         console.log('I managed to get here!');
         console.log('UsersController.secret() called!');
 
-        // 返回
+        // 返回 
         res.json({
             secret: "resource"
         })
